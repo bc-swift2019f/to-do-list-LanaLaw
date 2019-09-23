@@ -31,7 +31,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="B1V-57-eYe" kind="show" identifier=" " id="IN9-du-Ofm"/>
+                                            <segue destination="B1V-57-eYe" kind="show" identifier="EditItem" id="IN9-du-Ofm"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -49,7 +49,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="0bJ-wi-0iA" id="W4U-Gs-yOE"/>
+                        <outlet property="tableView" destination="0bJ-wi-0iA" id="qiJ-yc-vwg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -88,13 +88,18 @@
                                 <action selector="cancelPressed:" destination="B1V-57-eYe" id="A2U-V3-vja"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="G7g-34-tCy"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="G7g-34-tCy">
+                            <connections>
+                                <segue destination="BB7-Ht-rhF" kind="unwind" identifier="UnwindFromSave" unwindAction="unwindFromDetailViewControllerWithSegue:" id="bOo-pO-rWG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="toDoField" destination="Hmc-yH-ZYf" id="ojE-3a-MxK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tz1-M1-zzo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="BB7-Ht-rhF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2810" y="116"/>
         </scene>
