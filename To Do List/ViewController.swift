@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var addBarButton: UIBarButtonItem!
+    @IBOutlet weak var editBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     var toDoArray = ["Learn Swift", "Build Apps", "Change the World!"]
@@ -46,6 +48,19 @@ class ViewController: UIViewController {
     }
     
 
+    @IBAction func editBarButtonPressed(_ sender: Any) {
+        if tableView.isEditing {
+            tableView.setEditing(false, animated: true)
+            addBarButton.isEnabled = true
+            editBarButton.title = "Edit"
+        } else {
+            tableView.setEditing(true, animated: true)
+            addBarButton.isEnabled = false
+            editBarButton.title = "Done"
+        }
+    }
+    
+    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
@@ -58,4 +73,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         cell.textLabel?.text = toDoArray[indexPath.row]
         return cell
     }
-}
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            toDoArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let itemToMove = toDoArray[sourceIndexPath.row]
+        toDoArray.remove(at: sourceIndexPath.row)
+        toDoArray.insert(itemToMove, at: destinationIndexPath.row)
+    }
+    
+    
+    
+    }
+    
+
