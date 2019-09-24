@@ -15,14 +15,31 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var toDoArray = ["Learn Swift", "Build Apps", "Change the World!"]
-    var toDoNotesArray = ["I should be certain to do all of the sections from the homework", "Take my ideas to school's venture competition and win big check", "Focus on app's empowerment for all, with an extra bonus for users who are kind."]
+    var defaultsData = UserDefaults.standard
+    var toDoArray = [String]()
+    var toDoNotesArray = [String]()
+    
+    
+    
+    
+//    var toDoArray = ["Learn Swift", "Build Apps", "Change the World!"]
+//    var toDoNotesArray = ["I should be certain to do all of the sections from the homework", "Take my ideas to school's venture competition and win big check", "Focus on app's empowerment for all, with an extra bonus for users who are kind."]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        toDoArray = defaultsData.stringArray(forKey: "toDoArray") ?? [String]()
+        toDoNotesArray = defaultsData.stringArray(forKey: "toDoNotesArray") ?? [String] ()
+        
     }
+    
+    func saveDefaultsData(){
+        defaultsData.set(toDoArray, forKey: "toDoArray")
+        defaultsData.set(toDoNotesArray, forKey: "toDoNotesArray")
+    }
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EditItem" {
@@ -50,6 +67,8 @@ class ViewController: UIViewController {
             toDoNotesArray.append(sourceViewController.toDoNoteItem!)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
+        
+        saveDefaultsData()
     }
     
 
@@ -95,6 +114,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         toDoNotesArray.remove(at: sourceIndexPath.row)
         toDoArray.insert(itemToMove, at: destinationIndexPath.row)
         toDoNotesArray.insert(noteToMove, at: destinationIndexPath.row)
+        saveDefaultsData()
     }
     
     
